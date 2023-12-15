@@ -1,9 +1,19 @@
 %{
-
+/*
+-|--------------------------------------------------|-
+ |    UNIFAL - Universidade Federal de Alfenas.
+        BACHARELADO EM CIÊNCIA DA COMPUTAÇÃO.
+ |Trabalho....: Registro e verificação de tipos
+ |Disciplina..: Teoria de Linguagens e Compiladores
+ |Professor...: Luiz Eduardo da Silva
+ |Aluno.......: Alicia Garnier Duarte Franco  
+ |Data........: 15/12/2023
+-|--------------------------------------------------|-
+*/
 
 #include "sintatico.h" 
 
-int erro (char *s); // mensagem de erro
+int erro (char *s); 
 int yyerror(char *s); 
 char atomo[100];
 int numLinha = 1;

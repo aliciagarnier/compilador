@@ -1,3 +1,17 @@
+
+/*
+-|--------------------------------------------------|-
+ |    UNIFAL - Universidade Federal de Alfenas.
+        BACHARELADO EM CIÊNCIA DA COMPUTAÇÃO.
+ |Trabalho....: Registro e verificação de tipos
+ |Disciplina..: Teoria de Linguagens e Compiladores
+ |Professor...: Luiz Eduardo da Silva
+ |Aluno.......: Alicia Garnier Duarte Franco  
+ |Data........: 15/12/2023
+-|--------------------------------------------------|-
+*/
+
+
 #include <stdio.h>
 #include <string.h>
 
@@ -59,14 +73,15 @@ ptno insere(ptno L, char nome[], int tipo, int pos, int desl, int tam) {
 }
 
 
-ptno busca(ptno L, char *nome) {
+ptno buscaCampo(ptno L, char *nome) {
 
-    while(L && L->nome != nome) 
+    while(L && strcmp(L->nome, nome) != 0) 
     {
       L = L->prox; 
     }
-
+    
     return L; 
+   
 }
 
 // Tabela de símbolos
@@ -77,7 +92,7 @@ struct elem_tab_simbolos {
     int tam; 
     int pos; 
     ptno lista_campos; 
-} tabSimb[TAM_TAB], elemTab; // elemento na tabela de simbolos, vetor do tipo elem_tab_simbolos. 
+} tabSimb[TAM_TAB], elemTab; 
 int pos_tab = 0;
 
 // Manutenção da pilha semântica
@@ -94,7 +109,7 @@ int desempilha(){
 }
 
 
-// Função que busca um simbolo na tabela de simbolos
+
 int buscaSimbolo(char *id){
   int i = pos_tab -1;
   for(; strcmp(tabSimb[i].id, id) && i >= 0; i--)
@@ -132,10 +147,6 @@ void iniciaTabela() {
     insereSimbolo(elemTab2);
 }
 
-
-//testar tipos
-//tipo1 e tipo2 sao os tipos esperados na expressao 
-//ret eh o tipo que sera empilhado com resultado da expressao
 void testaTipo(int tipo1, int tipo2, int ret){
     int t1 = desempilha();
     int t2 = desempilha();
@@ -147,25 +158,23 @@ void testaTipo(int tipo1, int tipo2, int ret){
 }
 
 
-
-
 void mostraCampos(ptno L) {
   ptno p =  L; 
 
   if(p)  
   {
     while(p->prox) {
-    printf("(%3s, %3s, %d, %d, %d)=>", p->nome, p->tipo == INT? "INT" : p->tipo == LOG ? "LOG" : "REG", p->pos, p->desl, p->tam);
+    printf("(%s, %3s, %d, %d, %d)=>", p->nome, p->tipo == INT? "INT" : p->tipo == LOG ? "LOG" : "REG", p->pos, p->desl, p->tam);
     p = p->prox;
     }
-  printf(" (%3s, %3s, %d, %d, %d)", p->nome, p->tipo == INT? "INT" : p->tipo == LOG ? "LOG" : "REG", p->pos, p->desl, p->tam);
+  printf(" (%s, %3s, %d, %d, %d)", p->nome, p->tipo == INT? "INT" : p->tipo == LOG ? "LOG" : "REG", p->pos, p->desl, p->tam);
   }
 
 }
 
 void mostraTabela(){
   int i;
-  puts("Tabela de Simbolos");
+  puts("------------------------------------------TABELA DE SÍMBOLOS----------------------------------------");
   printf("\n%3s | %30s | %s | %s | %s | %s | %s \n", "#", "ID", "END", "TIP", "TAM", "POS", "CAMPOS");
   for(i = 0; i<50; i++)
     printf("--");
